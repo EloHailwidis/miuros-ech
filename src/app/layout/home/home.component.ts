@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PokemonsService } from '../../services/pokemons.service';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-home',
@@ -16,12 +16,13 @@ export class HomeComponent implements OnInit {
   nbItemsPerPage: number;
   previous: string;
   next: string;
+  currentPokemon: any;
 
   constructor(private pokemonsService: PokemonsService) { }
 
   ngOnInit() {
-    this.currentPage = 1;
-    this.nbItemsPerPage = 10;
+    this.currentPage = 0;
+    this.nbItemsPerPage = 20;
     this.displayedColumns = ['name'];
     this.fetchAll(this.currentPage);
   }
@@ -30,8 +31,8 @@ export class HomeComponent implements OnInit {
     this.pokemonsService.fetchAll(this.nbItemsPerPage, page).subscribe((data: any) => {
       this.pokemonsCount = data.count;
       this.pokemonsList = new MatTableDataSource(data.results);
-      this.previous = data.previous;
-      this.next = data.next;
+      this.previous = data.previous || false;
+      this.next = data.next || false;
     });
   }
 
@@ -43,5 +44,13 @@ export class HomeComponent implements OnInit {
     }
 
     this.fetchAll(this.currentPage);
+  }
+
+  async onPokemonClick(event, pokemon) {
+    this.currentPokemon = await this.pokemonsService.fetchOne(pokemon.url);
+
+    _.each(this.currentPokemon.abilities, async (ability, index) => {
+      this.currentPokemon.abilities[index] = await this.pokemonsService.fetchAbility(ability.ability.url);
+    });
   }
 }

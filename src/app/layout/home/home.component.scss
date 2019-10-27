@@ -10,6 +10,11 @@
 
         table {
             width: 100%;
+
+            .mat-cell.mat-column-name {
+                cursor: pointer;
+                text-transform: capitalize;
+            }
         }
 
         .table-navigation {
@@ -25,5 +30,42 @@
 
     .detail-panel {
         width: 70%;
+        margin-top: 68px;
+
+        .pokemon-detail {
+            .pokemon-detail-row  {
+                display: flex;
+                .detail-img {
+                    margin-right: 20px;
+                    img {
+                        width: 100px;
+                    }
+                }
+                .detail-data {
+                    .detail-row {
+                        padding: 5px 0;
+    
+                        .detail-label {
+                            color: #9c9c9c;
+                            margin-right: 5px;
+                        }
+            
+                        .detail-value {
+                            text-transform: capitalize;
+                        }
+                    }
+                }
+            }
+        }
+
+        .pokemon-abilities-row {
+            margin-top: 10px;
+
+            .ability-name {
+                color: #9c9c9c;
+                text-transform: capitalize;
+            }
+        }
+        
     }
 }

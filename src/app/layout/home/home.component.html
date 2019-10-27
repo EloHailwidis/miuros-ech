@@ -5,7 +5,7 @@
         <table mat-table [dataSource]="pokemonsList" class="mat-elevation-z8">
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                <td mat-cell *matCellDef="let element" (click)="onPokemonClick($event, element)"> {{element.name}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -13,13 +13,45 @@
         </table>
 
         <div class="table-navigation">
-            <button mat-flat-button color="primary" (click)="onPageChange($event, 'previous')">Previous</button>
-            <span>Page {{currentPage}}</span>
-            <button mat-flat-button color="primary" (click)="onPageChange($event, 'next')">Next</button>
+            <button mat-flat-button color="primary" (click)="onPageChange($event, 'previous')"
+                [disabled]="!previous">Previous</button>
+            <span>Page {{ currentPage + 1 }}</span>
+            <button mat-flat-button color="primary" (click)="onPageChange($event, 'next')"
+                [disabled]="!next">Next</button>
         </div>
     </div>
 
     <div class="detail-panel">
-        <h2>Main panel</h2>
+        <mat-card>
+            <div *ngIf="!currentPokemon">Please, click on a Pokemon</div>
+            <div *ngIf="currentPokemon" class="pokemon-detail">
+                <div class="pokemon-detail-row">
+                    <div class="detail-img">
+                        <img [src]="currentPokemon.sprites.front_default">
+                    </div>
+                    <div class="detail-data">
+                        <div class="detail-row">
+                            <span class="detail-label">Name</span>
+                            <span class="detail-value">{{ currentPokemon.name }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Height</span>
+                            <span class="detail-value">{{ currentPokemon.height }} cm</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Weight</span>
+                            <span class="detail-value">{{ currentPokemon.weight }} kg</span>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="pokemon-abilities-row" *ngFor="let ability of currentPokemon.abilities">
+                    <span class="ability-name">{{ ability.name }}</span>
+                    <div *ngFor="let effect_data of ability.effect_entries">
+                        <span class="ability-effect">{{ effect_data.effect }}</span>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
     </div>
 </div>

@@ -10,4 +10,12 @@ export class PokemonsService {
   fetchAll(limit, offset) {
     return this.http.get(`${this.url}/pokemon?limit=${limit}&offset=${offset}`);
   }
+
+  async fetchOne(url) {
+    return this.http.get(url).toPromise();
+  }
+
+  async fetchAbility(url) {
+    return this.http.get(url).toPromise();
+  }
 }
