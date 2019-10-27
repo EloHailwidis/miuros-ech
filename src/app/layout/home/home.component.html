@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="main-panel">
+        <h2>Pokemons ({{ pokemonsCount }})</h2>
+
+        <table mat-table [dataSource]="pokemonsList" class="mat-elevation-z8">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <div class="table-navigation">
+            <button mat-flat-button color="primary" (click)="onPageChange($event, 'previous')">Previous</button>
+            <span>Page {{currentPage}}</span>
+            <button mat-flat-button color="primary" (click)="onPageChange($event, 'next')">Next</button>
+        </div>
+    </div>
+
+    <div class="detail-panel">
+        <h2>Main panel</h2>
+    </div>
+</div>

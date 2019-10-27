@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+
+    .main-panel, .detail-panel {
+        padding: 20px;
+    }
+
+    .main-panel {
+        width: 30%;
+
+        table {
+            width: 100%;
+        }
+
+        .table-navigation {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+
+            span {
+                margin: auto;
+            }
+        }
+    }
+
+    .detail-panel {
+        width: 70%;
+    }
+}
