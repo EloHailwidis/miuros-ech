@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PokemonsService } from '../../services/pokemons.service';
 import { MatTableDataSource } from '@angular/material/table';
 import _ from 'lodash';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-home',
@@ -18,11 +19,11 @@ export class HomeComponent implements OnInit {
   next: string;
   currentPokemon: any;
 
-  constructor(private pokemonsService: PokemonsService) { }
+  constructor(private pokemonsService: PokemonsService, private settingsService: SettingsService) { }
 
   ngOnInit() {
     this.currentPage = 0;
-    this.nbItemsPerPage = 20;
+    this.nbItemsPerPage = this.settingsService.getPageSize();
     this.displayedColumns = ['name'];
     this.fetchAll(this.currentPage);
   }

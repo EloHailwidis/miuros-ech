@@ -4,6 +4,7 @@ import { layoutRouter } from './layout.router';
 import { LayoutComponent } from './layout.component';
 import { ToolbarModule } from './toolbar/toolbar.module';
 import { HomeModule } from './home/home.module';
+import { SettingsModule } from './settings/settings.module';
 
 @NgModule({
   declarations: [LayoutComponent],
@@ -11,7 +12,8 @@ import { HomeModule } from './home/home.module';
     CommonModule,
     layoutRouter,
     ToolbarModule,
-    HomeModule
+    HomeModule,
+    SettingsModule
   ],
   exports: [LayoutComponent]
 })

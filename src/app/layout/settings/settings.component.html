@@ -1,0 +1,14 @@
+<mat-card>
+    <h2>Settings</h2>
+
+    <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()">
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Page size" [formControl]="pagesizeFormControl">
+        </mat-form-field>
+
+        <div mat-dialog-actions align="end">
+            <button mat-flat-button color="primary">Save settings</button>
+        </div>
+    </form>
+
+</mat-card>
