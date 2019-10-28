@@ -15,7 +15,7 @@ export class SettingsService {
 
   getPageSize() {
     const stored = this._get('pageSize');
-    return parseInt(stored) || 10;
+    return parseInt(stored) || 20;
   }
 
   setPageSize(value) {

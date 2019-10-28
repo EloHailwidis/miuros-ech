@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { SettingsService } from 'src/app/services/settings.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -18,7 +19,7 @@ export class SettingsComponent implements OnInit {
     pagesizeFormControl: this.pagesizeFormControl
   });
 
-  constructor(private settingsService: SettingsService) { }
+  constructor(private settingsService: SettingsService, private router: Router) { }
 
   ngOnInit() {
     const pageSize = this.settingsService.getPageSize();
@@ -28,5 +29,6 @@ export class SettingsComponent implements OnInit {
   saveSettings() {
     const pageSize = this.settingsForm.controls['pagesizeFormControl'].value;
     this.settingsService.setPageSize(pageSize);
+    this.router.navigate(['/']);
   }
 }
