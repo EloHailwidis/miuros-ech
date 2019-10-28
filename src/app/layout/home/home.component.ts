@@ -18,12 +18,12 @@ export class HomeComponent implements OnInit {
   previous: string;
   next: string;
   currentPokemon: any;
-  favorites: any[];
+  favorites: any;
 
   constructor(private pokemonsService: PokemonsService, private settingsService: SettingsService) { }
 
   ngOnInit() {
-    this.favorites = [];
+    this.favorites = this.settingsService.getFavorites();
     this.currentPage = 0;
     this.nbItemsPerPage = this.settingsService.getPageSize();
     this.displayedColumns = ['name', 'favorites'];
@@ -32,8 +32,17 @@ export class HomeComponent implements OnInit {
 
   fetchAll(page) {
     this.pokemonsService.fetchAll(this.nbItemsPerPage, page).subscribe((data: any) => {
-      this.pokemonsCount = data.count;
+
+      // Set flag isFavorite to favorites pokemons
+      _.each(this.favorites, pokemon => {
+        const index = _.findIndex(data.results, { name: pokemon.name });
+        if (index !== -1) {
+          data.results[index].isFavorite = true;
+        }
+      });
+
       this.pokemonsList = new MatTableDataSource(data.results);
+      this.pokemonsCount = data.count;
       this.previous = data.previous || false;
       this.next = data.next || false;
     });
@@ -58,7 +67,12 @@ export class HomeComponent implements OnInit {
   }
 
   onAddFavoritesClick(event, pokemon) {
-    pokemon.isFavorite = !pokemon.isFavorite || true;
-    this.favorites.push(pokemon);
+    pokemon.isFavorite = !pokemon.isFavorite;
+    if (!pokemon.isFavorite) {
+      _.remove(this.favorites, favorite => favorite.name === pokemon.name);
+    } else {
+      this.favorites.push(pokemon);
+    }
+    this.settingsService.setFavorites(this.favorites);
   }
 }

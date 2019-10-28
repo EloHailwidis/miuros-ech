@@ -27,6 +27,6 @@ export class SettingsComponent implements OnInit {
 
   saveSettings() {
     const pageSize = this.settingsForm.controls['pagesizeFormControl'].value;
-    this.settingsService.set('pageSize', pageSize);
+    this.settingsService.setPageSize(pageSize);
   }
 }
