@@ -3,7 +3,12 @@
 
     <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()">
         <mat-form-field class="full-width">
-            <input matInput placeholder="Page size" [formControl]="pagesizeFormControl">
+            <input matInput name="pagesize" placeholder="Page size" [formControl]="pagesizeFormControl">
+            <mat-error *ngIf="pagesizeFormControl.errors?.required">Page size is required.</mat-error>
+            <mat-error *ngIf="pagesizeFormControl.errors?.min">Page size must be greater than 0.</mat-error>
+            <mat-error *ngIf="pagesizeFormControl.errors?.pattern.requiredPattern">
+                Page size must be a number.
+            </mat-error>
         </mat-form-field>
 
         <div mat-dialog-actions align="end">

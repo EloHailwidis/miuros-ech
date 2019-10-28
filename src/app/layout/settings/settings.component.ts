@@ -11,6 +11,7 @@ export class SettingsComponent implements OnInit {
   pagesizeFormControl = new FormControl(10, [
     Validators.required,
     Validators.min(0),
+    Validators.pattern("^[0-9]*$"),
   ]);
 
   settingsForm = new FormGroup({
