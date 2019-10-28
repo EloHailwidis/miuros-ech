@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -11,7 +12,8 @@ import { MatCardModule } from '@angular/material/card';
     CommonModule,
     MatTableModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
   exports: [HomeComponent]
 })

@@ -18,13 +18,15 @@ export class HomeComponent implements OnInit {
   previous: string;
   next: string;
   currentPokemon: any;
+  favorites: any[];
 
   constructor(private pokemonsService: PokemonsService, private settingsService: SettingsService) { }
 
   ngOnInit() {
+    this.favorites = [];
     this.currentPage = 0;
     this.nbItemsPerPage = this.settingsService.getPageSize();
-    this.displayedColumns = ['name'];
+    this.displayedColumns = ['name', 'favorites'];
     this.fetchAll(this.currentPage);
   }
 
@@ -53,5 +55,10 @@ export class HomeComponent implements OnInit {
     _.each(this.currentPokemon.abilities, async (ability, index) => {
       this.currentPokemon.abilities[index] = await this.pokemonsService.fetchAbility(ability.ability.url);
     });
+  }
+
+  onAddFavoritesClick(event, pokemon) {
+    pokemon.isFavorite = !pokemon.isFavorite || true;
+    this.favorites.push(pokemon);
   }
 }

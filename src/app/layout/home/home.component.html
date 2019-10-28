@@ -5,7 +5,17 @@
         <table mat-table [dataSource]="pokemonsList" class="mat-elevation-z8">
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Name </th>
-                <td mat-cell *matCellDef="let element" (click)="onPokemonClick($event, element)"> {{element.name}} </td>
+                <td mat-cell *matCellDef="let element" (click)="onPokemonClick($event, element)"
+                    [ngClass]="{'cell-favorite' : element.isFavorite }"> {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="favorites">
+                <th mat-header-cell *matHeaderCellDef> Add to favorites </th>
+                <td mat-cell *matCellDef="let element" (click)="onAddFavoritesClick($event, element)" class="meh"
+                    [ngClass]="{'cell-favorite' : element.isFavorite }">
+                    <i class="material-icons" *ngIf="!element.isFavorite">add_circle_outline</i>
+                    <i class="material-icons" *ngIf="element.isFavorite">remove_circle_outline</i>
+                </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
