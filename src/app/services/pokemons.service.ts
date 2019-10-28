@@ -7,7 +7,8 @@ export class PokemonsService {
 
   constructor(private http: HttpClient) { }
 
-  fetchAll(limit, offset) {
+  fetchAll(limit, page) {
+    const offset = (page + 1) * limit;
     return this.http.get(`${this.url}/pokemon?limit=${limit}&offset=${offset}`);
   }
 
